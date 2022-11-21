@@ -18,6 +18,7 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "string.h"
 #include "usb_device.h"
 
 /* Private includes ----------------------------------------------------------*/
@@ -57,7 +58,7 @@ static void MX_GPIO_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+uint8_t Rx_buffer[128];
 /* USER CODE END 0 */
 
 /**
@@ -95,68 +96,67 @@ int main(void)
   BSP_LCD_LayerDefaultInit(1,SDRAM_DEVICE_ADDR);
   BSP_LCD_SelectLayer(1);
   BSP_LCD_DisplayOn(); //turn on LCD
+  BSP_LCD_SetFont(&Font16);
+  BSP_LCD_GetFont();
   BSP_LCD_Clear(LCD_COLOR_BLACK); //clear the LCD on Black color
-  BSP_LCD_SetBackColor(LCD_COLOR_BLACK); //set background color is yellow
-  BSP_LCD_SetTextColor(LCD_COLOR_YELLOW);
-  /* USER CODE END 2 */
+  BSP_LCD_SetBackColor(LCD_COLOR_BLACK); //set background color is white
+  BSP_LCD_SetTextColor(LCD_COLOR_WHITE);
 
+  BSP_LCD_DisplayStringAtLine(1,(uint8_t*)"Good evening, ");
+  BSP_LCD_DisplayStringAtLine(2,(uint8_t*)"it's too dark here");
+
+
+
+  /* USER CODE END 2 */
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+	  	  int done = 0;
 
-	  uint8_t* Buf1= NULL;
-	  uint16_t Len1=0;
-	  char *string1 = "Hello STM", *string2 = "Good evening, it's too dark here",
-			  *string3 = "Do you want to turn on light?";
-	  uint8_t *message1 = (uint8_t*)string1;
-	  uint8_t *message2 = (uint8_t*)string2;
-	  uint8_t *message3 = (uint8_t*)string3;
-
-	  while((CDC_Transmit_HS(Buf1,Len1)) != *message1)
-	  {
-		  BSP_LCD_DisplayStringAt(100,200,message2,CENTER_MODE);
-	  }
-
-	  while(1)
-	  {
-		  BSP_LCD_DisplayStringAt(100,200,message3,CENTER_MODE);
-		  uint8_t* Buf2= NULL;
-		  uint16_t Len2=0;
-
-
-		  switch(CDC_Transmit_HS(Buf2,Len2))
+		  while(strncmp((const char *)Rx_buffer,"Hello STM",sizeof(Rx_buffer))!=0)
 		  {
-		  	  case 1:
-		  		  HAL_GPIO_WritePin(GPIOG,GPIO_PIN_13,1);
-		  		  break;
-		  	  case 2:
-		  		  HAL_GPIO_WritePin(GPIOG,GPIO_PIN_14,1);
-		  		  break;
-		  	  case 3:
-		  		  HAL_GPIO_WritePin(GPIOG,GPIO_PIN_14,1);
-		  		  break;
-		  	  case 4:
-		  		  HAL_GPIO_WritePin(GPIOG,GPIO_PIN_14,1);
-		  		  break;
-		  	  case 5:
-		  	  {
-		  		  HAL_GPIO_WritePin(GPIOG,GPIO_PIN_13,0);
-		  		  HAL_GPIO_WritePin(GPIOG,GPIO_PIN_14,0);
-		  		  break;
-		  	  }
-		  	  default: //default statement
-		  	  {
-		  		 HAL_GPIO_WritePin(GPIOG,GPIO_PIN_13,0);
-		  		 HAL_GPIO_WritePin(GPIOG,GPIO_PIN_14,0);
-		  	  }
+			  memset(Rx_buffer,0,sizeof(Rx_buffer));
 		  }
 
-	  }
+		  BSP_LCD_Clear(LCD_COLOR_BLACK);
+		  BSP_LCD_DisplayStringAtLine(1,(uint8_t*)"Do you want to turn");
+		  BSP_LCD_DisplayStringAtLine(2,(uint8_t*)"on light?");
+		  done = 1;
 
-  }
+		  while(done) {
+			  if(strncmp((const char*)Rx_buffer,"Turn on LED 3",sizeof(Rx_buffer))==0)
+			  {
+				  HAL_GPIO_WritePin(GPIOG, GPIO_PIN_13, GPIO_PIN_SET);
+				  memset(Rx_buffer,0,sizeof(Rx_buffer));
+			  }
+			  else if(strncmp((const char*)Rx_buffer,"Turn on LED 4",sizeof(Rx_buffer))==0)
+			  {
+				  HAL_GPIO_WritePin(GPIOG, GPIO_PIN_14, GPIO_PIN_SET);
+				  memset(Rx_buffer,0,sizeof(Rx_buffer));
+			  }
+			  else if(strncmp((const char*)Rx_buffer,"Turn off LED 3",sizeof(Rx_buffer))==0)
+			  {
+				  HAL_GPIO_WritePin(GPIOG, GPIO_PIN_13, GPIO_PIN_RESET);
+				  memset(Rx_buffer,0,sizeof(Rx_buffer));
+			  }
+			  else if(strncmp((const char*)Rx_buffer,"Turn off LED 4",sizeof(Rx_buffer))==0)
+			  {
+				  HAL_GPIO_WritePin(GPIOG, GPIO_PIN_14, GPIO_PIN_RESET);
+				  memset(Rx_buffer,0,sizeof(Rx_buffer));
+			  }
+			  else if(strncmp((const char*)Rx_buffer,"Good night",sizeof(Rx_buffer))==0)
+			  {
+				  HAL_GPIO_WritePin(GPIOG, GPIO_PIN_13, GPIO_PIN_RESET);
+				  HAL_GPIO_WritePin(GPIOG, GPIO_PIN_14, GPIO_PIN_RESET);
+				  memset(Rx_buffer,0,sizeof(Rx_buffer));
+			  }
+
+		  }
+	}
 
 }
+
 
 /**
   * @brief System Clock Configuration

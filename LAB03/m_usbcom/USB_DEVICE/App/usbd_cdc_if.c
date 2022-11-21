@@ -22,6 +22,7 @@
 #include "usbd_cdc_if.h"
 
 /* USER CODE BEGIN INCLUDE */
+extern uint8_t Rx_buffer[];
 
 /* USER CODE END INCLUDE */
 
@@ -266,6 +267,12 @@ static int8_t CDC_Receive_HS(uint8_t* Buf, uint32_t *Len)
   /* USER CODE BEGIN 11 */
   USBD_CDC_SetRxBuffer(&hUsbDeviceHS, &Buf[0]);
   USBD_CDC_ReceivePacket(&hUsbDeviceHS);
+
+  if(*Len!=0)
+  {
+	  memcpy(Rx_buffer,UserRxBufferHS, *Len);
+  }
+
   return (USBD_OK);
   /* USER CODE END 11 */
 }
