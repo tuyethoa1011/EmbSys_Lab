@@ -91,8 +91,8 @@ all: main-build
 main-build: m_usbcom.elf secondary-outputs
 
 # Tool invocations
-m_usbcom.elf m_usbcom.map: $(OBJS) $(USER_OBJS) E:\stm32_workingspace\m_usbcom\STM32F429ZITX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "m_usbcom.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"E:\stm32_workingspace\m_usbcom\STM32F429ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="m_usbcom.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+m_usbcom.elf m_usbcom.map: $(OBJS) $(USER_OBJS) E:\git_commit\STM32F429I_DISCOVERY\LAB03\m_usbcom\STM32F429ZITX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "m_usbcom.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"E:\git_commit\STM32F429I_DISCOVERY\LAB03\m_usbcom\STM32F429ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="m_usbcom.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

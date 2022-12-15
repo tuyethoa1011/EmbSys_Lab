@@ -39,13 +39,13 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  17 .debug_macro  000289a2  00000000  00000000  00040978  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_line   0001ea80  00000000  00000000  0006931a  2**0
+ 18 .debug_line   0001ea95  00000000  00000000  0006931a  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .debug_str    000e1972  00000000  00000000  00087d9a  2**0
+ 19 .debug_str    000e19aa  00000000  00000000  00087daf  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 20 .comment      00000050  00000000  00000000  0016970c  2**0
+ 20 .comment      00000050  00000000  00000000  00169759  2**0
                   CONTENTS, READONLY
- 21 .debug_frame  00005a9c  00000000  00000000  0016975c  2**2
+ 21 .debug_frame  00005a9c  00000000  00000000  001697ac  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -1128,561 +1128,328 @@ void SystemInit(void)
  800091c:	e000ed00 	.word	0xe000ed00
 
 08000920 <Reset_Handler>:
-
-    .section  .text.Reset_Handler
-  .weak  Reset_Handler
-  .type  Reset_Handler, %function
-Reset_Handler: 
-  ldr   sp, =_estack       /* set stack pointer */
  8000920:	f8df d034 	ldr.w	sp, [pc, #52]	; 8000958 <LoopFillZerobss+0x12>
- 
-/* Copy the data segment initializers from flash to SRAM */  
-  ldr r0, =_sdata
  8000924:	480d      	ldr	r0, [pc, #52]	; (800095c <LoopFillZerobss+0x16>)
-  ldr r1, =_edata
  8000926:	490e      	ldr	r1, [pc, #56]	; (8000960 <LoopFillZerobss+0x1a>)
-  ldr r2, =_sidata
  8000928:	4a0e      	ldr	r2, [pc, #56]	; (8000964 <LoopFillZerobss+0x1e>)
-  movs r3, #0
  800092a:	2300      	movs	r3, #0
-  b LoopCopyDataInit
  800092c:	e002      	b.n	8000934 <LoopCopyDataInit>
 
 0800092e <CopyDataInit>:
-
-CopyDataInit:
-  ldr r4, [r2, r3]
  800092e:	58d4      	ldr	r4, [r2, r3]
-  str r4, [r0, r3]
  8000930:	50c4      	str	r4, [r0, r3]
-  adds r3, r3, #4
  8000932:	3304      	adds	r3, #4
 
 08000934 <LoopCopyDataInit>:
-
-LoopCopyDataInit:
-  adds r4, r0, r3
  8000934:	18c4      	adds	r4, r0, r3
-  cmp r4, r1
  8000936:	428c      	cmp	r4, r1
-  bcc CopyDataInit
  8000938:	d3f9      	bcc.n	800092e <CopyDataInit>
-  
-/* Zero fill the bss segment. */
-  ldr r2, =_sbss
  800093a:	4a0b      	ldr	r2, [pc, #44]	; (8000968 <LoopFillZerobss+0x22>)
-  ldr r4, =_ebss
  800093c:	4c0b      	ldr	r4, [pc, #44]	; (800096c <LoopFillZerobss+0x26>)
-  movs r3, #0
  800093e:	2300      	movs	r3, #0
-  b LoopFillZerobss
  8000940:	e001      	b.n	8000946 <LoopFillZerobss>
 
 08000942 <FillZerobss>:
-
-FillZerobss:
-  str  r3, [r2]
  8000942:	6013      	str	r3, [r2, #0]
-  adds r2, r2, #4
  8000944:	3204      	adds	r2, #4
 
 08000946 <LoopFillZerobss>:
-
-LoopFillZerobss:
-  cmp r2, r4
  8000946:	42a2      	cmp	r2, r4
-  bcc FillZerobss
  8000948:	d3fb      	bcc.n	8000942 <FillZerobss>
-
-/* Call the clock system initialization function.*/
-  bl  SystemInit   
  800094a:	f7ff ffd7 	bl	80008fc <SystemInit>
-/* Call static constructors */
-    bl __libc_init_array
  800094e:	f009 fd91 	bl	800a474 <__libc_init_array>
-/* Call the application's entry point.*/
-  bl  main
  8000952:	f7ff fdd7 	bl	8000504 <main>
-  bx  lr    
  8000956:	4770      	bx	lr
-  ldr   sp, =_estack       /* set stack pointer */
  8000958:	20030000 	.word	0x20030000
-  ldr r0, =_sdata
  800095c:	20000000 	.word	0x20000000
-  ldr r1, =_edata
  8000960:	2000014c 	.word	0x2000014c
-  ldr r2, =_sidata
  8000964:	0800cca4 	.word	0x0800cca4
-  ldr r2, =_sbss
  8000968:	2000014c 	.word	0x2000014c
-  ldr r4, =_ebss
  800096c:	2000204c 	.word	0x2000204c
 
 08000970 <ADC_IRQHandler>:
- * @retval None       
-*/
-    .section  .text.Default_Handler,"ax",%progbits
-Default_Handler:
-Infinite_Loop:
-  b  Infinite_Loop
  8000970:	e7fe      	b.n	8000970 <ADC_IRQHandler>
 
 08000972 <ili9341_Init>:
-  * @brief  Power on the LCD.
-  * @param  None
-  * @retval None
-  */
-void ili9341_Init(void)
-{
  8000972:	b580      	push	{r7, lr}
  8000974:	af00      	add	r7, sp, #0
-  /* Initialize ILI9341 low level bus layer ----------------------------------*/
-  LCD_IO_Init();
  8000976:	f000 fa5d 	bl	8000e34 <LCD_IO_Init>
-  
-  /* Configure LCD */
-  ili9341_WriteReg(0xCA);
  800097a:	20ca      	movs	r0, #202	; 0xca
  800097c:	f000 f95d 	bl	8000c3a <ili9341_WriteReg>
-  ili9341_WriteData(0xC3);
  8000980:	20c3      	movs	r0, #195	; 0xc3
  8000982:	f000 f967 	bl	8000c54 <ili9341_WriteData>
-  ili9341_WriteData(0x08);
  8000986:	2008      	movs	r0, #8
  8000988:	f000 f964 	bl	8000c54 <ili9341_WriteData>
-  ili9341_WriteData(0x50);
  800098c:	2050      	movs	r0, #80	; 0x50
  800098e:	f000 f961 	bl	8000c54 <ili9341_WriteData>
-  ili9341_WriteReg(LCD_POWERB);
  8000992:	20cf      	movs	r0, #207	; 0xcf
  8000994:	f000 f951 	bl	8000c3a <ili9341_WriteReg>
-  ili9341_WriteData(0x00);
  8000998:	2000      	movs	r0, #0
  800099a:	f000 f95b 	bl	8000c54 <ili9341_WriteData>
-  ili9341_WriteData(0xC1);
  800099e:	20c1      	movs	r0, #193	; 0xc1
  80009a0:	f000 f958 	bl	8000c54 <ili9341_WriteData>
-  ili9341_WriteData(0x30);
  80009a4:	2030      	movs	r0, #48	; 0x30
  80009a6:	f000 f955 	bl	8000c54 <ili9341_WriteData>
-  ili9341_WriteReg(LCD_POWER_SEQ);
  80009aa:	20ed      	movs	r0, #237	; 0xed
  80009ac:	f000 f945 	bl	8000c3a <ili9341_WriteReg>
-  ili9341_WriteData(0x64);
  80009b0:	2064      	movs	r0, #100	; 0x64
  80009b2:	f000 f94f 	bl	8000c54 <ili9341_WriteData>
-  ili9341_WriteData(0x03);
  80009b6:	2003      	movs	r0, #3
  80009b8:	f000 f94c 	bl	8000c54 <ili9341_WriteData>
-  ili9341_WriteData(0x12);
  80009bc:	2012      	movs	r0, #18
  80009be:	f000 f949 	bl	8000c54 <ili9341_WriteData>
-  ili9341_WriteData(0x81);
  80009c2:	2081      	movs	r0, #129	; 0x81
  80009c4:	f000 f946 	bl	8000c54 <ili9341_WriteData>
-  ili9341_WriteReg(LCD_DTCA);
  80009c8:	20e8      	movs	r0, #232	; 0xe8
  80009ca:	f000 f936 	bl	8000c3a <ili9341_WriteReg>
-  ili9341_WriteData(0x85);
  80009ce:	2085      	movs	r0, #133	; 0x85
  80009d0:	f000 f940 	bl	8000c54 <ili9341_WriteData>
-  ili9341_WriteData(0x00);
  80009d4:	2000      	movs	r0, #0
  80009d6:	f000 f93d 	bl	8000c54 <ili9341_WriteData>
-  ili9341_WriteData(0x78);
  80009da:	2078      	movs	r0, #120	; 0x78
  80009dc:	f000 f93a 	bl	8000c54 <ili9341_WriteData>
-  ili9341_WriteReg(LCD_POWERA);
  80009e0:	20cb      	movs	r0, #203	; 0xcb
  80009e2:	f000 f92a 	bl	8000c3a <ili9341_WriteReg>
-  ili9341_WriteData(0x39);
  80009e6:	2039      	movs	r0, #57	; 0x39
  80009e8:	f000 f934 	bl	8000c54 <ili9341_WriteData>
-  ili9341_WriteData(0x2C);
  80009ec:	202c      	movs	r0, #44	; 0x2c
  80009ee:	f000 f931 	bl	8000c54 <ili9341_WriteData>
-  ili9341_WriteData(0x00);
  80009f2:	2000      	movs	r0, #0
  80009f4:	f000 f92e 	bl	8000c54 <ili9341_WriteData>
-  ili9341_WriteData(0x34);
  80009f8:	2034      	movs	r0, #52	; 0x34
  80009fa:	f000 f92b 	bl	8000c54 <ili9341_WriteData>
-  ili9341_WriteData(0x02);
  80009fe:	2002      	movs	r0, #2
  8000a00:	f000 f928 	bl	8000c54 <ili9341_WriteData>
-  ili9341_WriteReg(LCD_PRC);
  8000a04:	20f7      	movs	r0, #247	; 0xf7
  8000a06:	f000 f918 	bl	8000c3a <ili9341_WriteReg>
-  ili9341_WriteData(0x20);
  8000a0a:	2020      	movs	r0, #32
  8000a0c:	f000 f922 	bl	8000c54 <ili9341_WriteData>
-  ili9341_WriteReg(LCD_DTCB);
  8000a10:	20ea      	movs	r0, #234	; 0xea
  8000a12:	f000 f912 	bl	8000c3a <ili9341_WriteReg>
-  ili9341_WriteData(0x00);
  8000a16:	2000      	movs	r0, #0
  8000a18:	f000 f91c 	bl	8000c54 <ili9341_WriteData>
-  ili9341_WriteData(0x00);
  8000a1c:	2000      	movs	r0, #0
  8000a1e:	f000 f919 	bl	8000c54 <ili9341_WriteData>
-  ili9341_WriteReg(LCD_FRMCTR1);
  8000a22:	20b1      	movs	r0, #177	; 0xb1
  8000a24:	f000 f909 	bl	8000c3a <ili9341_WriteReg>
-  ili9341_WriteData(0x00);
  8000a28:	2000      	movs	r0, #0
  8000a2a:	f000 f913 	bl	8000c54 <ili9341_WriteData>
-  ili9341_WriteData(0x1B);
  8000a2e:	201b      	movs	r0, #27
  8000a30:	f000 f910 	bl	8000c54 <ili9341_WriteData>
-  ili9341_WriteReg(LCD_DFC);
  8000a34:	20b6      	movs	r0, #182	; 0xb6
  8000a36:	f000 f900 	bl	8000c3a <ili9341_WriteReg>
-  ili9341_WriteData(0x0A);
  8000a3a:	200a      	movs	r0, #10
  8000a3c:	f000 f90a 	bl	8000c54 <ili9341_WriteData>
-  ili9341_WriteData(0xA2);
  8000a40:	20a2      	movs	r0, #162	; 0xa2
  8000a42:	f000 f907 	bl	8000c54 <ili9341_WriteData>
-  ili9341_WriteReg(LCD_POWER1);
  8000a46:	20c0      	movs	r0, #192	; 0xc0
  8000a48:	f000 f8f7 	bl	8000c3a <ili9341_WriteReg>
-  ili9341_WriteData(0x10);
  8000a4c:	2010      	movs	r0, #16
  8000a4e:	f000 f901 	bl	8000c54 <ili9341_WriteData>
-  ili9341_WriteReg(LCD_POWER2);
  8000a52:	20c1      	movs	r0, #193	; 0xc1
  8000a54:	f000 f8f1 	bl	8000c3a <ili9341_WriteReg>
-  ili9341_WriteData(0x10);
  8000a58:	2010      	movs	r0, #16
  8000a5a:	f000 f8fb 	bl	8000c54 <ili9341_WriteData>
-  ili9341_WriteReg(LCD_VCOM1);
  8000a5e:	20c5      	movs	r0, #197	; 0xc5
  8000a60:	f000 f8eb 	bl	8000c3a <ili9341_WriteReg>
-  ili9341_WriteData(0x45);
  8000a64:	2045      	movs	r0, #69	; 0x45
  8000a66:	f000 f8f5 	bl	8000c54 <ili9341_WriteData>
-  ili9341_WriteData(0x15);
  8000a6a:	2015      	movs	r0, #21
  8000a6c:	f000 f8f2 	bl	8000c54 <ili9341_WriteData>
-  ili9341_WriteReg(LCD_VCOM2);
  8000a70:	20c7      	movs	r0, #199	; 0xc7
  8000a72:	f000 f8e2 	bl	8000c3a <ili9341_WriteReg>
-  ili9341_WriteData(0x90);
  8000a76:	2090      	movs	r0, #144	; 0x90
  8000a78:	f000 f8ec 	bl	8000c54 <ili9341_WriteData>
-  ili9341_WriteReg(LCD_MAC);
  8000a7c:	2036      	movs	r0, #54	; 0x36
  8000a7e:	f000 f8dc 	bl	8000c3a <ili9341_WriteReg>
-  ili9341_WriteData(0xC8);
  8000a82:	20c8      	movs	r0, #200	; 0xc8
  8000a84:	f000 f8e6 	bl	8000c54 <ili9341_WriteData>
-  ili9341_WriteReg(LCD_3GAMMA_EN);
  8000a88:	20f2      	movs	r0, #242	; 0xf2
  8000a8a:	f000 f8d6 	bl	8000c3a <ili9341_WriteReg>
-  ili9341_WriteData(0x00);
  8000a8e:	2000      	movs	r0, #0
  8000a90:	f000 f8e0 	bl	8000c54 <ili9341_WriteData>
-  ili9341_WriteReg(LCD_RGB_INTERFACE);
  8000a94:	20b0      	movs	r0, #176	; 0xb0
  8000a96:	f000 f8d0 	bl	8000c3a <ili9341_WriteReg>
-  ili9341_WriteData(0xC2);
  8000a9a:	20c2      	movs	r0, #194	; 0xc2
  8000a9c:	f000 f8da 	bl	8000c54 <ili9341_WriteData>
-  ili9341_WriteReg(LCD_DFC);
  8000aa0:	20b6      	movs	r0, #182	; 0xb6
  8000aa2:	f000 f8ca 	bl	8000c3a <ili9341_WriteReg>
-  ili9341_WriteData(0x0A);
  8000aa6:	200a      	movs	r0, #10
  8000aa8:	f000 f8d4 	bl	8000c54 <ili9341_WriteData>
-  ili9341_WriteData(0xA7);
  8000aac:	20a7      	movs	r0, #167	; 0xa7
  8000aae:	f000 f8d1 	bl	8000c54 <ili9341_WriteData>
-  ili9341_WriteData(0x27);
  8000ab2:	2027      	movs	r0, #39	; 0x27
  8000ab4:	f000 f8ce 	bl	8000c54 <ili9341_WriteData>
-  ili9341_WriteData(0x04);
  8000ab8:	2004      	movs	r0, #4
  8000aba:	f000 f8cb 	bl	8000c54 <ili9341_WriteData>
-  
-  /* Colomn address set */
-  ili9341_WriteReg(LCD_COLUMN_ADDR);
  8000abe:	202a      	movs	r0, #42	; 0x2a
  8000ac0:	f000 f8bb 	bl	8000c3a <ili9341_WriteReg>
-  ili9341_WriteData(0x00);
  8000ac4:	2000      	movs	r0, #0
  8000ac6:	f000 f8c5 	bl	8000c54 <ili9341_WriteData>
-  ili9341_WriteData(0x00);
  8000aca:	2000      	movs	r0, #0
  8000acc:	f000 f8c2 	bl	8000c54 <ili9341_WriteData>
-  ili9341_WriteData(0x00);
  8000ad0:	2000      	movs	r0, #0
  8000ad2:	f000 f8bf 	bl	8000c54 <ili9341_WriteData>
-  ili9341_WriteData(0xEF);
  8000ad6:	20ef      	movs	r0, #239	; 0xef
  8000ad8:	f000 f8bc 	bl	8000c54 <ili9341_WriteData>
-  /* Page address set */
-  ili9341_WriteReg(LCD_PAGE_ADDR);
  8000adc:	202b      	movs	r0, #43	; 0x2b
  8000ade:	f000 f8ac 	bl	8000c3a <ili9341_WriteReg>
-  ili9341_WriteData(0x00);
  8000ae2:	2000      	movs	r0, #0
  8000ae4:	f000 f8b6 	bl	8000c54 <ili9341_WriteData>
-  ili9341_WriteData(0x00);
  8000ae8:	2000      	movs	r0, #0
  8000aea:	f000 f8b3 	bl	8000c54 <ili9341_WriteData>
-  ili9341_WriteData(0x01);
  8000aee:	2001      	movs	r0, #1
  8000af0:	f000 f8b0 	bl	8000c54 <ili9341_WriteData>
-  ili9341_WriteData(0x3F);
  8000af4:	203f      	movs	r0, #63	; 0x3f
  8000af6:	f000 f8ad 	bl	8000c54 <ili9341_WriteData>
-  ili9341_WriteReg(LCD_INTERFACE);
  8000afa:	20f6      	movs	r0, #246	; 0xf6
  8000afc:	f000 f89d 	bl	8000c3a <ili9341_WriteReg>
-  ili9341_WriteData(0x01);
  8000b00:	2001      	movs	r0, #1
  8000b02:	f000 f8a7 	bl	8000c54 <ili9341_WriteData>
-  ili9341_WriteData(0x00);
  8000b06:	2000      	movs	r0, #0
  8000b08:	f000 f8a4 	bl	8000c54 <ili9341_WriteData>
-  ili9341_WriteData(0x06);
  8000b0c:	2006      	movs	r0, #6
  8000b0e:	f000 f8a1 	bl	8000c54 <ili9341_WriteData>
-  
-  ili9341_WriteReg(LCD_GRAM);
  8000b12:	202c      	movs	r0, #44	; 0x2c
  8000b14:	f000 f891 	bl	8000c3a <ili9341_WriteReg>
-  LCD_Delay(200);
  8000b18:	20c8      	movs	r0, #200	; 0xc8
  8000b1a:	f000 fa79 	bl	8001010 <LCD_Delay>
-  
-  ili9341_WriteReg(LCD_GAMMA);
  8000b1e:	2026      	movs	r0, #38	; 0x26
  8000b20:	f000 f88b 	bl	8000c3a <ili9341_WriteReg>
-  ili9341_WriteData(0x01);
  8000b24:	2001      	movs	r0, #1
  8000b26:	f000 f895 	bl	8000c54 <ili9341_WriteData>
-  
-  ili9341_WriteReg(LCD_PGAMMA);
  8000b2a:	20e0      	movs	r0, #224	; 0xe0
  8000b2c:	f000 f885 	bl	8000c3a <ili9341_WriteReg>
-  ili9341_WriteData(0x0F);
  8000b30:	200f      	movs	r0, #15
  8000b32:	f000 f88f 	bl	8000c54 <ili9341_WriteData>
-  ili9341_WriteData(0x29);
  8000b36:	2029      	movs	r0, #41	; 0x29
  8000b38:	f000 f88c 	bl	8000c54 <ili9341_WriteData>
-  ili9341_WriteData(0x24);
  8000b3c:	2024      	movs	r0, #36	; 0x24
  8000b3e:	f000 f889 	bl	8000c54 <ili9341_WriteData>
-  ili9341_WriteData(0x0C);
  8000b42:	200c      	movs	r0, #12
  8000b44:	f000 f886 	bl	8000c54 <ili9341_WriteData>
-  ili9341_WriteData(0x0E);
  8000b48:	200e      	movs	r0, #14
  8000b4a:	f000 f883 	bl	8000c54 <ili9341_WriteData>
-  ili9341_WriteData(0x09);
  8000b4e:	2009      	movs	r0, #9
  8000b50:	f000 f880 	bl	8000c54 <ili9341_WriteData>
-  ili9341_WriteData(0x4E);
  8000b54:	204e      	movs	r0, #78	; 0x4e
  8000b56:	f000 f87d 	bl	8000c54 <ili9341_WriteData>
-  ili9341_WriteData(0x78);
  8000b5a:	2078      	movs	r0, #120	; 0x78
  8000b5c:	f000 f87a 	bl	8000c54 <ili9341_WriteData>
-  ili9341_WriteData(0x3C);
  8000b60:	203c      	movs	r0, #60	; 0x3c
  8000b62:	f000 f877 	bl	8000c54 <ili9341_WriteData>
-  ili9341_WriteData(0x09);
  8000b66:	2009      	movs	r0, #9
  8000b68:	f000 f874 	bl	8000c54 <ili9341_WriteData>
-  ili9341_WriteData(0x13);
  8000b6c:	2013      	movs	r0, #19
  8000b6e:	f000 f871 	bl	8000c54 <ili9341_WriteData>
-  ili9341_WriteData(0x05);
  8000b72:	2005      	movs	r0, #5
  8000b74:	f000 f86e 	bl	8000c54 <ili9341_WriteData>
-  ili9341_WriteData(0x17);
  8000b78:	2017      	movs	r0, #23
  8000b7a:	f000 f86b 	bl	8000c54 <ili9341_WriteData>
-  ili9341_WriteData(0x11);
  8000b7e:	2011      	movs	r0, #17
  8000b80:	f000 f868 	bl	8000c54 <ili9341_WriteData>
-  ili9341_WriteData(0x00);
  8000b84:	2000      	movs	r0, #0
  8000b86:	f000 f865 	bl	8000c54 <ili9341_WriteData>
-  ili9341_WriteReg(LCD_NGAMMA);
  8000b8a:	20e1      	movs	r0, #225	; 0xe1
  8000b8c:	f000 f855 	bl	8000c3a <ili9341_WriteReg>
-  ili9341_WriteData(0x00);
  8000b90:	2000      	movs	r0, #0
  8000b92:	f000 f85f 	bl	8000c54 <ili9341_WriteData>
-  ili9341_WriteData(0x16);
  8000b96:	2016      	movs	r0, #22
  8000b98:	f000 f85c 	bl	8000c54 <ili9341_WriteData>
-  ili9341_WriteData(0x1B);
  8000b9c:	201b      	movs	r0, #27
  8000b9e:	f000 f859 	bl	8000c54 <ili9341_WriteData>
-  ili9341_WriteData(0x04);
  8000ba2:	2004      	movs	r0, #4
  8000ba4:	f000 f856 	bl	8000c54 <ili9341_WriteData>
-  ili9341_WriteData(0x11);
  8000ba8:	2011      	movs	r0, #17
  8000baa:	f000 f853 	bl	8000c54 <ili9341_WriteData>
-  ili9341_WriteData(0x07);
  8000bae:	2007      	movs	r0, #7
  8000bb0:	f000 f850 	bl	8000c54 <ili9341_WriteData>
-  ili9341_WriteData(0x31);
  8000bb4:	2031      	movs	r0, #49	; 0x31
  8000bb6:	f000 f84d 	bl	8000c54 <ili9341_WriteData>
-  ili9341_WriteData(0x33);
  8000bba:	2033      	movs	r0, #51	; 0x33
  8000bbc:	f000 f84a 	bl	8000c54 <ili9341_WriteData>
-  ili9341_WriteData(0x42);
  8000bc0:	2042      	movs	r0, #66	; 0x42
  8000bc2:	f000 f847 	bl	8000c54 <ili9341_WriteData>
-  ili9341_WriteData(0x05);
  8000bc6:	2005      	movs	r0, #5
  8000bc8:	f000 f844 	bl	8000c54 <ili9341_WriteData>
-  ili9341_WriteData(0x0C);
  8000bcc:	200c      	movs	r0, #12
  8000bce:	f000 f841 	bl	8000c54 <ili9341_WriteData>
-  ili9341_WriteData(0x0A);
  8000bd2:	200a      	movs	r0, #10
  8000bd4:	f000 f83e 	bl	8000c54 <ili9341_WriteData>
-  ili9341_WriteData(0x28);
  8000bd8:	2028      	movs	r0, #40	; 0x28
  8000bda:	f000 f83b 	bl	8000c54 <ili9341_WriteData>
-  ili9341_WriteData(0x2F);
  8000bde:	202f      	movs	r0, #47	; 0x2f
  8000be0:	f000 f838 	bl	8000c54 <ili9341_WriteData>
-  ili9341_WriteData(0x0F);
  8000be4:	200f      	movs	r0, #15
  8000be6:	f000 f835 	bl	8000c54 <ili9341_WriteData>
-  
-  ili9341_WriteReg(LCD_SLEEP_OUT);
  8000bea:	2011      	movs	r0, #17
  8000bec:	f000 f825 	bl	8000c3a <ili9341_WriteReg>
-  LCD_Delay(200);
  8000bf0:	20c8      	movs	r0, #200	; 0xc8
  8000bf2:	f000 fa0d 	bl	8001010 <LCD_Delay>
-  ili9341_WriteReg(LCD_DISPLAY_ON);
  8000bf6:	2029      	movs	r0, #41	; 0x29
  8000bf8:	f000 f81f 	bl	8000c3a <ili9341_WriteReg>
-  /* GRAM start writing */
-  ili9341_WriteReg(LCD_GRAM);
  8000bfc:	202c      	movs	r0, #44	; 0x2c
  8000bfe:	f000 f81c 	bl	8000c3a <ili9341_WriteReg>
-}
  8000c02:	bf00      	nop
  8000c04:	bd80      	pop	{r7, pc}
 
 08000c06 <ili9341_ReadID>:
-  * @brief  Disables the Display.
-  * @param  None
-  * @retval LCD Register Value.
-  */
-uint16_t ili9341_ReadID(void)
-{
  8000c06:	b580      	push	{r7, lr}
  8000c08:	af00      	add	r7, sp, #0
-  LCD_IO_Init();
  8000c0a:	f000 f913 	bl	8000e34 <LCD_IO_Init>
-  return ((uint16_t)ili9341_ReadData(LCD_READ_ID4, LCD_READ_ID4_SIZE));
  8000c0e:	2103      	movs	r1, #3
  8000c10:	20d3      	movs	r0, #211	; 0xd3
  8000c12:	f000 f82c 	bl	8000c6e <ili9341_ReadData>
  8000c16:	4603      	mov	r3, r0
  8000c18:	b29b      	uxth	r3, r3
-}
  8000c1a:	4618      	mov	r0, r3
  8000c1c:	bd80      	pop	{r7, pc}
 
 08000c1e <ili9341_DisplayOn>:
-  * @brief  Enables the Display.
-  * @param  None
-  * @retval None
-  */
-void ili9341_DisplayOn(void)
-{
  8000c1e:	b580      	push	{r7, lr}
  8000c20:	af00      	add	r7, sp, #0
-  /* Display On */
-  ili9341_WriteReg(LCD_DISPLAY_ON);
  8000c22:	2029      	movs	r0, #41	; 0x29
  8000c24:	f000 f809 	bl	8000c3a <ili9341_WriteReg>
-}
  8000c28:	bf00      	nop
  8000c2a:	bd80      	pop	{r7, pc}
 
 08000c2c <ili9341_DisplayOff>:
-  * @brief  Disables the Display.
-  * @param  None
-  * @retval None
-  */
-void ili9341_DisplayOff(void)
-{
  8000c2c:	b580      	push	{r7, lr}
  8000c2e:	af00      	add	r7, sp, #0
-  /* Display Off */
-  ili9341_WriteReg(LCD_DISPLAY_OFF);
  8000c30:	2028      	movs	r0, #40	; 0x28
  8000c32:	f000 f802 	bl	8000c3a <ili9341_WriteReg>
-}
  8000c36:	bf00      	nop
  8000c38:	bd80      	pop	{r7, pc}
 
 08000c3a <ili9341_WriteReg>:
-  * @brief  Writes  to the selected LCD register.
-  * @param  LCD_Reg: address of the selected register.
-  * @retval None
-  */
-void ili9341_WriteReg(uint8_t LCD_Reg)
-{
  8000c3a:	b580      	push	{r7, lr}
  8000c3c:	b082      	sub	sp, #8
  8000c3e:	af00      	add	r7, sp, #0
  8000c40:	4603      	mov	r3, r0
  8000c42:	71fb      	strb	r3, [r7, #7]
-  LCD_IO_WriteReg(LCD_Reg);
  8000c44:	79fb      	ldrb	r3, [r7, #7]
  8000c46:	4618      	mov	r0, r3
  8000c48:	f000 f98e 	bl	8000f68 <LCD_IO_WriteReg>
-}
  8000c4c:	bf00      	nop
  8000c4e:	3708      	adds	r7, #8
  8000c50:	46bd      	mov	sp, r7
  8000c52:	bd80      	pop	{r7, pc}
 
 08000c54 <ili9341_WriteData>:
-  * @brief  Writes data to the selected LCD register.
-  * @param  LCD_Reg: address of the selected register.
-  * @retval None
-  */
-void ili9341_WriteData(uint16_t RegValue)
-{
  8000c54:	b580      	push	{r7, lr}
  8000c56:	b082      	sub	sp, #8
  8000c58:	af00      	add	r7, sp, #0
  8000c5a:	4603      	mov	r3, r0
  8000c5c:	80fb      	strh	r3, [r7, #6]
-  LCD_IO_WriteData(RegValue);
  8000c5e:	88fb      	ldrh	r3, [r7, #6]
  8000c60:	4618      	mov	r0, r3
  8000c62:	f000 f95f 	bl	8000f24 <LCD_IO_WriteData>
-}
  8000c66:	bf00      	nop
  8000c68:	3708      	adds	r7, #8
  8000c6a:	46bd      	mov	sp, r7
  8000c6c:	bd80      	pop	{r7, pc}
 
 08000c6e <ili9341_ReadData>:
-  * @param  RegValue: Address of the register to read
-  * @param  ReadSize: Number of bytes to read
-  * @retval LCD Register Value.
-  */
-uint32_t ili9341_ReadData(uint16_t RegValue, uint8_t ReadSize)
-{
  8000c6e:	b580      	push	{r7, lr}
  8000c70:	b082      	sub	sp, #8
  8000c72:	af00      	add	r7, sp, #0
@@ -1691,51 +1458,30 @@ uint32_t ili9341_ReadData(uint16_t RegValue, uint8_t ReadSize)
  8000c78:	80fb      	strh	r3, [r7, #6]
  8000c7a:	4613      	mov	r3, r2
  8000c7c:	717b      	strb	r3, [r7, #5]
-  /* Read a max of 4 bytes */
-  return (LCD_IO_ReadData(RegValue, ReadSize));
  8000c7e:	797a      	ldrb	r2, [r7, #5]
  8000c80:	88fb      	ldrh	r3, [r7, #6]
  8000c82:	4611      	mov	r1, r2
  8000c84:	4618      	mov	r0, r3
  8000c86:	f000 f991 	bl	8000fac <LCD_IO_ReadData>
  8000c8a:	4603      	mov	r3, r0
-}
  8000c8c:	4618      	mov	r0, r3
  8000c8e:	3708      	adds	r7, #8
  8000c90:	46bd      	mov	sp, r7
  8000c92:	bd80      	pop	{r7, pc}
 
 08000c94 <ili9341_GetLcdPixelWidth>:
-  * @brief  Get LCD PIXEL WIDTH.
-  * @param  None
-  * @retval LCD PIXEL WIDTH.
-  */
-uint16_t ili9341_GetLcdPixelWidth(void)
-{
  8000c94:	b480      	push	{r7}
  8000c96:	af00      	add	r7, sp, #0
-  /* Return LCD PIXEL WIDTH */
-  return ILI9341_LCD_PIXEL_WIDTH;
  8000c98:	23f0      	movs	r3, #240	; 0xf0
-}
  8000c9a:	4618      	mov	r0, r3
  8000c9c:	46bd      	mov	sp, r7
  8000c9e:	f85d 7b04 	ldr.w	r7, [sp], #4
  8000ca2:	4770      	bx	lr
 
 08000ca4 <ili9341_GetLcdPixelHeight>:
-  * @brief  Get LCD PIXEL HEIGHT.
-  * @param  None
-  * @retval LCD PIXEL HEIGHT.
-  */
-uint16_t ili9341_GetLcdPixelHeight(void)
-{
  8000ca4:	b480      	push	{r7}
  8000ca6:	af00      	add	r7, sp, #0
-  /* Return LCD PIXEL HEIGHT */
-  return ILI9341_LCD_PIXEL_HEIGHT;
  8000ca8:	f44f 73a0 	mov.w	r3, #320	; 0x140
-}
  8000cac:	4618      	mov	r0, r3
  8000cae:	46bd      	mov	sp, r7
  8000cb0:	f85d 7b04 	ldr.w	r7, [sp], #4

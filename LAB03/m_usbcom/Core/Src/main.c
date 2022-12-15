@@ -99,7 +99,7 @@ int main(void)
   BSP_LCD_SetFont(&Font16);
   BSP_LCD_GetFont();
   BSP_LCD_Clear(LCD_COLOR_BLACK); //clear the LCD on Black color
-  BSP_LCD_SetBackColor(LCD_COLOR_BLACK); //set background color is white
+  BSP_LCD_SetBackColor(LCD_COLOR_BLACK); //set background color is black
   BSP_LCD_SetTextColor(LCD_COLOR_WHITE);
 
   BSP_LCD_DisplayStringAtLine(1,(uint8_t*)"Good evening, ");
@@ -151,10 +151,8 @@ int main(void)
 				  HAL_GPIO_WritePin(GPIOG, GPIO_PIN_14, GPIO_PIN_RESET);
 				  memset(Rx_buffer,0,sizeof(Rx_buffer));
 			  }
-
 		  }
 	}
-
 }
 
 

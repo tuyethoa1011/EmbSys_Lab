@@ -39,7 +39,7 @@ Drivers/BSP/STM32F429I-Discovery/stm32f429i_discovery_gyroscope.o: \
  C:/Users/Hoa/STM32Cube/Repository/STM32Cube_FW_F4_V1.27.1/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h \
  C:/Users/Hoa/STM32Cube/Repository/STM32Cube_FW_F4_V1.27.1/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.h \
  ../Drivers/BSP/STM32F429I-Discovery/../Components/l3gd20/l3gd20.h \
- e:\stm32_workingspace\m_usbcom\drivers\bsp\components\common\gyro.h
+ ../Drivers/BSP/STM32F429I-Discovery/../Components/l3gd20/../Common/gyro.h
 ../Drivers/BSP/STM32F429I-Discovery/stm32f429i_discovery_gyroscope.h:
 ../Drivers/BSP/STM32F429I-Discovery/stm32f429i_discovery.h:
 C:/Users/Hoa/STM32Cube/Repository/STM32Cube_FW_F4_V1.27.1/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
@@ -79,4 +79,4 @@ C:/Users/Hoa/STM32Cube/Repository/STM32Cube_FW_F4_V1.27.1/Drivers/STM32F4xx_HAL_
 C:/Users/Hoa/STM32Cube/Repository/STM32Cube_FW_F4_V1.27.1/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h:
 C:/Users/Hoa/STM32Cube/Repository/STM32Cube_FW_F4_V1.27.1/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.h:
 ../Drivers/BSP/STM32F429I-Discovery/../Components/l3gd20/l3gd20.h:
-e:\stm32_workingspace\m_usbcom\drivers\bsp\components\common\gyro.h:
+../Drivers/BSP/STM32F429I-Discovery/../Components/l3gd20/../Common/gyro.h:
