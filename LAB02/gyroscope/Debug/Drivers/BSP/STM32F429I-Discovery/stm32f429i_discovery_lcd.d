@@ -36,15 +36,15 @@ Drivers/BSP/STM32F429I-Discovery/stm32f429i_discovery_lcd.o: \
  C:/Users/Hoa/STM32Cube/Repository/STM32Cube_FW_F4_V1.27.1/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h \
  C:/Users/Hoa/STM32Cube/Repository/STM32Cube_FW_F4_V1.27.1/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h \
  ../Drivers/BSP/STM32F429I-Discovery/stm32f429i_discovery_sdram.h \
- e:\stn32_workingspace\gyroscope\utilities\fonts\fonts.h \
+ ../Drivers/BSP/STM32F429I-Discovery/../../../Utilities/Fonts/fonts.h \
  ../Drivers/BSP/STM32F429I-Discovery/../Components/ili9341/ili9341.h \
- e:\stn32_workingspace\gyroscope\drivers\bsp\components\common\lcd.h \
- e:\stn32_workingspace\gyroscope\utilities\fonts\font24.c \
- e:\stn32_workingspace\gyroscope\utilities\fonts\fonts.h \
- e:\stn32_workingspace\gyroscope\utilities\fonts\font20.c \
- e:\stn32_workingspace\gyroscope\utilities\fonts\font16.c \
- e:\stn32_workingspace\gyroscope\utilities\fonts\font12.c \
- e:\stn32_workingspace\gyroscope\utilities\fonts\font8.c
+ ../Drivers/BSP/STM32F429I-Discovery/../Components/ili9341/../Common/lcd.h \
+ ../Drivers/BSP/STM32F429I-Discovery/../../../Utilities/Fonts/font24.c \
+ ../Drivers/BSP/STM32F429I-Discovery/../../../Utilities/Fonts/fonts.h \
+ ../Drivers/BSP/STM32F429I-Discovery/../../../Utilities/Fonts/font20.c \
+ ../Drivers/BSP/STM32F429I-Discovery/../../../Utilities/Fonts/font16.c \
+ ../Drivers/BSP/STM32F429I-Discovery/../../../Utilities/Fonts/font12.c \
+ ../Drivers/BSP/STM32F429I-Discovery/../../../Utilities/Fonts/font8.c
 ../Drivers/BSP/STM32F429I-Discovery/stm32f429i_discovery_lcd.h:
 ../Drivers/BSP/STM32F429I-Discovery/stm32f429i_discovery.h:
 C:/Users/Hoa/STM32Cube/Repository/STM32Cube_FW_F4_V1.27.1/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
@@ -81,12 +81,12 @@ C:/Users/Hoa/STM32Cube/Repository/STM32Cube_FW_F4_V1.27.1/Drivers/STM32F4xx_HAL_
 C:/Users/Hoa/STM32Cube/Repository/STM32Cube_FW_F4_V1.27.1/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h:
 C:/Users/Hoa/STM32Cube/Repository/STM32Cube_FW_F4_V1.27.1/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h:
 ../Drivers/BSP/STM32F429I-Discovery/stm32f429i_discovery_sdram.h:
-e:\stn32_workingspace\gyroscope\utilities\fonts\fonts.h:
+../Drivers/BSP/STM32F429I-Discovery/../../../Utilities/Fonts/fonts.h:
 ../Drivers/BSP/STM32F429I-Discovery/../Components/ili9341/ili9341.h:
-e:\stn32_workingspace\gyroscope\drivers\bsp\components\common\lcd.h:
-e:\stn32_workingspace\gyroscope\utilities\fonts\font24.c:
-e:\stn32_workingspace\gyroscope\utilities\fonts\fonts.h:
-e:\stn32_workingspace\gyroscope\utilities\fonts\font20.c:
-e:\stn32_workingspace\gyroscope\utilities\fonts\font16.c:
-e:\stn32_workingspace\gyroscope\utilities\fonts\font12.c:
-e:\stn32_workingspace\gyroscope\utilities\fonts\font8.c:
+../Drivers/BSP/STM32F429I-Discovery/../Components/ili9341/../Common/lcd.h:
+../Drivers/BSP/STM32F429I-Discovery/../../../Utilities/Fonts/font24.c:
+../Drivers/BSP/STM32F429I-Discovery/../../../Utilities/Fonts/fonts.h:
+../Drivers/BSP/STM32F429I-Discovery/../../../Utilities/Fonts/font20.c:
+../Drivers/BSP/STM32F429I-Discovery/../../../Utilities/Fonts/font16.c:
+../Drivers/BSP/STM32F429I-Discovery/../../../Utilities/Fonts/font12.c:
+../Drivers/BSP/STM32F429I-Discovery/../../../Utilities/Fonts/font8.c:

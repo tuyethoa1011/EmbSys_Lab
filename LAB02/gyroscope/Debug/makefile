@@ -88,8 +88,8 @@ all: main-build
 main-build: gyroscope.elf secondary-outputs
 
 # Tool invocations
-gyroscope.elf gyroscope.map: $(OBJS) $(USER_OBJS) E:\stn32_workingspace\gyroscope\STM32F429ZITX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "gyroscope.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"E:\stn32_workingspace\gyroscope\STM32F429ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="gyroscope.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
+gyroscope.elf gyroscope.map: $(OBJS) $(USER_OBJS) E:\git_commit\STM32F429I_DISCOVERY\LAB02\gyroscope\STM32F429ZITX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "gyroscope.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"E:\git_commit\STM32F429I_DISCOVERY\LAB02\gyroscope\STM32F429ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="gyroscope.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

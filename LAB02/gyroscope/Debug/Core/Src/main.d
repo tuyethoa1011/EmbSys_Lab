@@ -40,11 +40,7 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  c:\users\hoa\stm32cube_fw_f4_v1.27.0\drivers\bsp\components\common\lcd.h \
  C:/Users/Hoa/STM32Cube_FW_F4_V1.27.0/Drivers/BSP/STM32F429I-Discovery/stm32f429i_discovery_gyroscope.h \
  c:\users\hoa\stm32cube_fw_f4_v1.27.0\drivers\bsp\components\l3gd20\l3gd20.h \
- c:\users\hoa\stm32cube_fw_f4_v1.27.0\drivers\bsp\components\common\gyro.h \
- C:/Users/Hoa/STM32Cube_FW_F4_V1.27.0/Drivers/BSP/STM32F429I-Discovery/stm32f429i_discovery_io.h \
- c:\users\hoa\stm32cube_fw_f4_v1.27.0\drivers\bsp\components\stmpe811\stmpe811.h \
- c:\users\hoa\stm32cube_fw_f4_v1.27.0\drivers\bsp\components\common\ts.h \
- c:\users\hoa\stm32cube_fw_f4_v1.27.0\drivers\bsp\components\common\io.h
+ c:\users\hoa\stm32cube_fw_f4_v1.27.0\drivers\bsp\components\common\gyro.h
 ../Core/Inc/main.h:
 C:/Users/Hoa/STM32Cube/Repository/STM32Cube_FW_F4_V1.27.1/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 ../Core/Inc/stm32f4xx_hal_conf.h:
@@ -88,7 +84,3 @@ c:\users\hoa\stm32cube_fw_f4_v1.27.0\drivers\bsp\components\common\lcd.h:
 C:/Users/Hoa/STM32Cube_FW_F4_V1.27.0/Drivers/BSP/STM32F429I-Discovery/stm32f429i_discovery_gyroscope.h:
 c:\users\hoa\stm32cube_fw_f4_v1.27.0\drivers\bsp\components\l3gd20\l3gd20.h:
 c:\users\hoa\stm32cube_fw_f4_v1.27.0\drivers\bsp\components\common\gyro.h:
-C:/Users/Hoa/STM32Cube_FW_F4_V1.27.0/Drivers/BSP/STM32F429I-Discovery/stm32f429i_discovery_io.h:
-c:\users\hoa\stm32cube_fw_f4_v1.27.0\drivers\bsp\components\stmpe811\stmpe811.h:
-c:\users\hoa\stm32cube_fw_f4_v1.27.0\drivers\bsp\components\common\ts.h:
-c:\users\hoa\stm32cube_fw_f4_v1.27.0\drivers\bsp\components\common\io.h:

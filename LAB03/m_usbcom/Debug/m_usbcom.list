@@ -416,7 +416,7 @@ int main(void)
   BSP_LCD_Clear(LCD_COLOR_BLACK); //clear the LCD on Black color
  800053c:	f04f 407f 	mov.w	r0, #4278190080	; 0xff000000
  8000540:	f000 feca 	bl	80012d8 <BSP_LCD_Clear>
-  BSP_LCD_SetBackColor(LCD_COLOR_BLACK); //set background color is white
+  BSP_LCD_SetBackColor(LCD_COLOR_BLACK); //set background color is black
  8000544:	f04f 407f 	mov.w	r0, #4278190080	; 0xff000000
  8000548:	f000 fe7c 	bl	8001244 <BSP_LCD_SetBackColor>
   BSP_LCD_SetTextColor(LCD_COLOR_WHITE);
